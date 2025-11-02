@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motify TikTok Callback</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 { color: #22c55e; }
+    p { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <h1>✅ TikTok Authorization Successful</h1>
+  <p>You can now close this window and return to Motify.</p>
+  <script>
+    // Optional: Capture TikTok code and state for debugging
+    const params = new URLSearchParams(window.location.search);
+    console.log("TikTok redirect params:", Object.fromEntries(params.entries()));
+  </script>
+</body>
+</html>
