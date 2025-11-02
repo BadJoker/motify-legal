@@ -3,30 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Motify TikTok Callback</title>
+  <title>Motify – TikTok OAuth Callback</title>
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #f8fafc;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 { color: #22c55e; }
-    p { color: #cbd5e1; }
+    :root { --bg:#0b1220; --fg:#e5eefc; --muted:#9fb0ce; --ok:#22c55e; }
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial,sans-serif}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{max-width:720px;width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+          border-radius:16px;padding:28px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+    h1{margin:0 0 8px 0;font-size:1.5rem;color:var(--fg)} h2{font-size:1rem;color:var(--muted);margin:0 0 18px 0}
+    pre{white-space:pre-wrap;background:#0e172a;border-radius:12px;padding:12px;color:#cbd5e1;overflow:auto}
+    .ok{color:var(--ok);font-weight:600}
+    a{color:#7dd3fc;text-decoration:none}
   </style>
 </head>
 <body>
-  <h1>✅ TikTok Authorization Successful</h1>
-  <p>You can now close this window and return to Motify.</p>
+  <div class="wrap">
+    <div class="card">
+      <h1 class="ok">✅ TikTok Authorization Successful</h1>
+      <h2>You can now close this window and return to Motify.</h2>
+      <div id="debug" style="display:none">
+        <p><strong>Debug (will not be sent anywhere):</strong></p>
+        <pre id="params"></pre>
+      </div>
+    </div>
+  </div>
   <script>
-    // Optional: Capture TikTok code and state for debugging
-    const params = new URLSearchParams(window.location.search);
-    console.log("TikTok redirect params:", Object.fromEntries(params.entries()));
+    // Optional: show params for debugging when ?debug=1 is present
+    const usp = new URLSearchParams(location.search);
+    if (usp.get("debug") === "1") {
+      document.getElementById("debug").style.display = "block";
+      const obj = Object.fromEntries(usp.entries());
+      document.getElementById("params").textContent = JSON.stringify(obj, null, 2);
+    }
+    // Optional forward to your web app after capture (uncomment + set URL)
+    // const code = usp.get("code"); const state = usp.get("state");
+    // if (code) location.href = "https://motify.app/handle-tiktok?code=" + encodeURIComponent(code) + "&state=" + encodeURIComponent(state||"");
   </script>
 </body>
 </html>
